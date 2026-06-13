@@ -6,7 +6,7 @@ class Spaceship(Turtle):
         super().__init__()
         self.shape("square")
         self.color("white")
-        self.shapesize(stretch_len=2, stretch_wid=1)
+        self.shapesize(stretch_len=4, stretch_wid=1.5)
         self.penup()
         self.goto(0,-250)
 
