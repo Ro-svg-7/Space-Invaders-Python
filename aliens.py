@@ -17,7 +17,7 @@ class Aliens:
     
     def move_aliens(self):
             for alien in self.all_aliens:
-                 alien.goto(alien.xcor(), alien.ycor()-10)
+                 alien.goto(alien.xcor(), alien.ycor()-15)
 
     def create_aliens(self):
         colors = ["#00FF7F", "#00CC66", "#00994C"]
