@@ -18,11 +18,12 @@ ship.screen.onkeypress(ship.shoot, "space")
 game_is_on = True
 
 last_move = time.time()
+score = 0
 
 while game_is_on:
     screen.update()
     time.sleep(0.02)
-
+    
     bullets_to_remove= []
     for bullet in ship.bullets:
         bullet.move()
@@ -36,6 +37,7 @@ while game_is_on:
             if bullet.distance(alien_obj) < 20:
                 bullets_to_remove.append(bullet)
                 alien.all_aliens.remove(alien_obj)
+                score += 1
                 alien_obj.hideturtle()
                 bullet.hideturtle()
                 break
@@ -43,8 +45,19 @@ while game_is_on:
     for bullet in bullets_to_remove:
         if bullet in ship.bullets:
             ship.bullets.remove(bullet)
-
-    if time.time() - last_move > 2:
+    
+    for alien_obj in alien.all_aliens:
+        if alien_obj.ycor() < -180:
+            game_is_on = False
+            print("Game Over!")
+            print(f"Your score is {score}")
+            break
+    
+    if len(alien.all_aliens) == 0:
+        game_is_on = False
+        print("You WIN!")
+    
+    if time.time() - last_move > 1:
         alien.move_aliens()
         last_move = time.time()
 
