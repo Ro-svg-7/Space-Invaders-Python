@@ -19,7 +19,7 @@ class Score(Turtle):
     def increase_score(self):
         self.score += 1
         self.write_score()
-    
+  
     def game_over(self):
         self.clear()
         self.goto(0,0)
@@ -31,6 +31,12 @@ class Score(Turtle):
         self.goto(0,-30)
         self.write(
             f"Your score is: {self.score}",
+            align="center",
+            font=("Arial", 20, "bold")
+        )
+        self.goto(0,-60)
+        self.write(
+            "Press 'r' to restart the game",
             align="center",
             font=("Arial", 20, "bold")
         )
@@ -51,3 +57,9 @@ class Score(Turtle):
             align="center",
             font=("Arial", 20, "normal")
         )
+        self.write(
+            "Press 'r' to restart the game",
+            align="center",
+            font=("Arial", 20, "bold")
+        )
+    
