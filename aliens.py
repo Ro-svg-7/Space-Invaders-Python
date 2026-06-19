@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 class Alien(Turtle):
-    def __init__(self,color, position):
+    def __init__(self,color, position, health):
         super().__init__()
         self.shape("turtle")
         self.shapesize(2.5,2.5)
@@ -9,6 +9,7 @@ class Alien(Turtle):
         self.penup()
         self.color(color)
         self.goto(position)
+        self.health = health
 
 class Aliens:
     def __init__(self):
@@ -33,7 +34,14 @@ class Aliens:
                 x = start_x + col*px
                 y = start_y + row*py
 
-                alien = Alien(colors[row], (x,y))
+                if row == 0:
+                    health = 1
+                elif row == 1:
+                    health= 2
+                else:
+                    health = 3
+
+                alien = Alien(colors[row], (x,y), health)
                 self.all_aliens.append(alien)
 
         

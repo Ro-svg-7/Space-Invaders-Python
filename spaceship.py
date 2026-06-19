@@ -8,7 +8,7 @@ class Spaceship(Turtle):
         self.color("white")
         self.shapesize(stretch_len=4, stretch_wid=1.5)
         self.penup()
-        self.goto(0,-250)
+        self.goto(0,-280)
 
         self.bullets = []
 

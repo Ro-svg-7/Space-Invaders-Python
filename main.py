@@ -1,14 +1,16 @@
 from turtle import Screen
 from spaceship import Spaceship
 from aliens import Aliens
+from scoreboard import Score
 import time
 
 screen = Screen()
-screen.setup(height=650, width=800)
+screen.setup(height=700, width=800)
 screen.bgcolor("black")
 screen.tracer(0)
 ship = Spaceship()
 alien = Aliens()
+scoreboard = Score()
 
 ship.screen.listen()
 ship.screen.onkeypress(ship.go_left, "Left")
@@ -35,10 +37,8 @@ while game_is_on:
         
         for alien_obj in alien.all_aliens:
             if bullet.distance(alien_obj) < 20:
+                alien_obj.health -= 1
                 bullets_to_remove.append(bullet)
-                alien.all_aliens.remove(alien_obj)
-                score += 1
-                alien_obj.hideturtle()
                 bullet.hideturtle()
                 break
     
@@ -47,15 +47,24 @@ while game_is_on:
             ship.bullets.remove(bullet)
     
     for alien_obj in alien.all_aliens:
-        if alien_obj.ycor() < -180:
+        if alien_obj.health == 2:
+            alien_obj.color("yellow")
+        elif alien_obj.health == 3:
+            alien_obj.color("red")
+        else:
+            alien_obj.color("green")
+        if alien_obj.health <= 0:
+            alien_obj.hideturtle()
+            alien.all_aliens.remove(alien_obj)
+            scoreboard.increase_score()
+        if alien_obj.ycor() < -200:
             game_is_on = False
-            print("Game Over!")
-            print(f"Your score is {score}")
+            scoreboard.game_over()
             break
     
     if len(alien.all_aliens) == 0:
         game_is_on = False
-        print("You WIN!")
+        scoreboard.you_win()
     
     if time.time() - last_move > 1:
         alien.move_aliens()
