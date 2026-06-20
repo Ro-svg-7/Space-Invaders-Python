@@ -36,6 +36,11 @@ ship.screen.onkeypress(ship.go_right, "Right")
 ship.screen.onkeypress(ship.shoot, "space")
 screen.onkeypress(restart, "r")
 
+def get_move_interval():
+    remaining = len(alien.all_aliens)
+    total = 36
+    return max(0.1, 0.8 * (remaining / total))
+
 def play():
     global game_is_on
     last_move = time.time()
@@ -85,7 +90,8 @@ def play():
                 game_is_on = False
                 scoreboard.you_win()
             
-            if time.time() - last_move > 1:
+            
+            if time.time() - last_move > get_move_interval():
                 alien.move_aliens()
                 last_move = time.time()
 

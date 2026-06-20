@@ -13,13 +13,26 @@ class Alien(Turtle):
 
 class Aliens:
     def __init__(self):
+        self.left_boundary = -350
+        self.right_boundary = 350
+        self.direction = 1
         self.all_aliens=[]
         self.create_aliens()
     
     def move_aliens(self):
-            for alien in self.all_aliens:
-                 alien.goto(alien.xcor(), alien.ycor()-15)
-
+        for alien in self.all_aliens:
+            if alien.xcor() > self.right_boundary:
+                self.direction = -1
+                for a in self.all_aliens:
+                    a.sety(a.ycor() - 50)
+                break
+            elif alien.xcor() < self.left_boundary:
+                self.direction = 1
+                for a in self.all_aliens:
+                    a.sety(a.ycor() - 50)
+                break
+        for alien in self.all_aliens:
+            alien.setx(alien.xcor() + 10 * self.direction)
     def create_aliens(self):
         colors = ["#00FF7F", "#00CC66", "#00994C"]
 
